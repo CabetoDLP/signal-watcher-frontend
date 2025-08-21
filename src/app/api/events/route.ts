@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const { watchlistId, description } = await request.json();
     const newEvent = await eventService.create(watchlistId, description);
     return NextResponse.json(newEvent, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to create event' },
       { status: 400 }
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const watchlistId = searchParams.get('watchlistId');
-    
+
     if (!watchlistId) {
       return NextResponse.json(
         { error: 'watchlistId is required' },
@@ -28,7 +28,7 @@ export async function GET(request: Request) {
 
     const events = await eventService.getByWatchlist(watchlistId);
     return NextResponse.json(events);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch events' },
       { status: 500 }
