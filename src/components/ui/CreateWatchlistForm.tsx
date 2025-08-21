@@ -21,8 +21,8 @@ export function CreateWatchlistForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    reset
+    reset,
+    formState: { errors, isSubmitting }
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema)
   });
@@ -31,19 +31,27 @@ export function CreateWatchlistForm() {
     try {
       setError(null);
       const watchlist = await watchlistService.create(values.name);
-      
+
+      // limpiar formulario
+      reset();
+
       // Redirigir a la watchlist recién creada
       router.push(`/dashboard/watchlists/${watchlist.id}`);
-    } catch (error: any) {
-      console.error('Error creating watchlist:', error);
-      
-      // Manejar errores específicos del backend
-      if (error.response?.status === 409) {
-        setError('A watchlist with this name already exists. Please choose a different name.');
-      } else if (error.response?.status === 400) {
-        setError('Invalid input. Please check your data and try again.');
+    } catch (err: unknown) {
+      console.error('Error creating watchlist:', err);
+
+      if (typeof err === 'object' && err && 'response' in err) {
+        const e = err as { response?: { status?: number } };
+        
+        if (e.response?.status === 409) {
+          setError('A watchlist with this name already exists. Please choose a different name.');
+        } else if (e.response?.status === 400) {
+          setError('Invalid input. Please check your data and try again.');
+        } else {
+          setError('Failed to create watchlist. Please try again.');
+        }
       } else {
-        setError('Failed to create watchlist. Please try again.');
+        setError('Unexpected error. Please try again.');
       }
     }
   };
