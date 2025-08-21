@@ -1,3 +1,28 @@
+# Proyecto Full-Stack Node.js + Next.js (AI-first)
+
+Aplicación full-stack con **Fastify + TypeScript + Prisma + Redis** en el backend y **Next.js (App Router)** en el frontend.  
+Permite crear listas, simular eventos y enriquecer datos con IA (Gemini).
+
+---
+
+## ▶️ Ejecución local
+
+1. Clonar el repositorio
+
+2. Crear .env y su variable de entorno para el dominio (local host en local)
+
+    NEXT_PUBLIC_API_URL
+
+3. Pasos de ejecuccion
+    Instalar dependencias con npm install
+    npm run dev (ejecutar en local) o npm run start 
+    
+
+# signal-watcher-frontend
+Aplicación de listas de supervision que almacenan eventos con feedback impulsado por Gemini.
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
