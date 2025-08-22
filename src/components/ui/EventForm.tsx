@@ -25,7 +25,7 @@ export function EventForm({ watchlistId }: { watchlistId: string }) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await api.post('/api/events', {
+      await api.post('/api/events/create', {
         watchlistId,
         description: values.description,
       });
